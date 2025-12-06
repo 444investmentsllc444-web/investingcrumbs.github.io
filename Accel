@@ -1,0 +1,24 @@
+# src/numba_accel.py
+import numpy as np
+try:
+    from numba import njit
+    has_numba = True
+except:
+    has_numba = False
+
+if has_numba:
+    @njit
+    def fast_runs_pct(close_arr, window):
+        n = len(close_arr)
+        out = np.empty(n)
+        out[:] = np.nan
+        for i in range(window, n):
+            out[i] = (close_arr[i] - close_arr[i-window]) / close_arr[i-window]
+        return out
+else:
+    def fast_runs_pct(close_arr, window):
+        close_arr = np.asarray(close_arr)
+        out = np.full(len(close_arr), np.nan)
+        for i in range(window, len(close_arr)):
+            out[i] = (close_arr[i] - close_arr[i-window]) / close_arr[i-window]
+        return out
