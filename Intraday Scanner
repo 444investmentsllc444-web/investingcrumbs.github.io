@@ -1,0 +1,35 @@
+# src/intraday_scanner.py
+import time
+from collections import deque
+import pandas as pd
+from src.detectors import find_flagpole_and_consolidation
+
+class RealTimeScanner:
+    def __init__(self, tickers, bars_window=200):
+        self.tickers = tickers
+        self.bars_window = bars_window
+        self.buffers = {t: deque(maxlen=bars_window) for t in tickers}
+        self.running = False
+
+    def on_bar(self, ticker, bar):
+        self.buffers[ticker].append(bar)
+        if len(self.buffers[ticker]) > 60:
+            df = pd.DataFrame(list(self.buffers[ticker]))
+            df = df.rename(columns={'o':'Open','h':'High','l':'Low','c':'Close','v':'Volume'})
+            pattern = find_flagpole_and_consolidation(df)
+            if pattern:
+                print("Realtime pattern:", ticker, pattern.get('breakout'))
+
+    def start_polling_rest(self, provider, interval=60):
+        self.running = True
+        while self.running:
+            for t in self.tickers:
+                bars = provider.fetch_latest_bars(t, n=self.bars_window)
+                if not bars:
+                    continue
+                for b in bars:
+                    self.on_bar(t, b)
+            time.sleep(interval)
+
+    def stop(self):
+        self.running = False
