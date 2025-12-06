@@ -1,0 +1,51 @@
+# src/ml_pipeline.py
+import os
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+import joblib
+import numpy as np
+
+MODEL_DIR = "models"
+os.makedirs(MODEL_DIR, exist_ok=True)
+MODEL_PATH = os.path.join(MODEL_DIR, "zanger_model.joblib")
+
+def build_dataset_from_scans(backtest_csvs):
+    rows = []
+    for csv in backtest_csvs:
+        df = pd.read_csv(csv)
+        if df.empty:
+            continue
+        df['label'] = df['r_10d'].apply(lambda x: 1 if (pd.notna(x) and float(x) >= 5.0) else 0)
+        df['has_breakout'] = (df['status'] == 'ok').astype(float)
+        df['r_1d_fill'] = df['r_1d'].fillna(0).astype(float)
+        for _, r in df.iterrows():
+            rows.append({
+                "ticker": r['ticker'],
+                "has_breakout": r['has_breakout'],
+                "r_1d": r['r_1d_fill'],
+                "label": int(r['label'])
+            })
+    return pd.DataFrame(rows)
+
+def train_model(backtest_csvs):
+    Xy = build_dataset_from_scans(backtest_csvs)
+    if Xy.empty:
+        raise ValueError("No training data.")
+    X = Xy[['has_breakout','r_1d']].values
+    y = Xy['label'].values
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
+    pipe = Pipeline([
+        ('scaler', StandardScaler()),
+        ('clf', RandomForestClassifier(n_estimators=200, random_state=42))
+    ])
+    pipe.fit(X_train, y_train)
+    acc = pipe.score(X_test, y_test)
+    joblib.dump(pipe, MODEL_PATH)
+    print("Saved model:", MODEL_PATH, "acc:", acc)
+    return MODEL_PATH, acc
+
+def load_model(path=MODEL_PATH):
+    return joblib.load(path)
