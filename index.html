@@ -111,10 +111,10 @@
   <div class="header">
     <div class="logo">Investing Crumbs</div>
     <div class="nav">
-      <a href="#">Home</a>
-      <a href="#">Markets</a>
-      <a href="#">Stocks</a>
-      <a href="#">Screeners</a>
+      <a href="../dashboard/index.html">Home</a>
+      <a href="../charts/">Markets</a>
+      <a href="../scan_results/">Stocks</a>
+      <a href="../scan_results/">Screeners</a>
       <a href="#">Learn</a>
       <a href="#">About</a>
     </div>
@@ -122,33 +122,33 @@
 
   <div class="main">
 
+    <!-- Left Column -->
     <div class="column left">
       <div class="section">
         <div class="section-title">Market Tools</div>
         <ul>
-          <li><a href="#">Stock Screener</a></li>
-          <li><a href="#">Dividend Finder</a></li>
-          <li><a href="#">ETF List</a></li>
+          <li><a id="latestScan" href="#">Stock Screener (latest)</a></li>
+          <li><a href="../charts/dividend_chart.png">Dividend Finder</a></li>
+          <li><a href="../charts/etf_list.png">ETF List</a></li>
         </ul>
       </div>
 
       <div class="section">
         <div class="section-title">Learn</div>
         <ul>
-          <li><a href="#">Investing Basics</a></li>
-          <li><a href="#">Valuation</a></li>
-          <li><a href="#">Risk</a></li>
+          <li><a href="../charts/investing_basics.png">Investing Basics</a></li>
+          <li><a href="../charts/valuation.png">Valuation</a></li>
+          <li><a href="../charts/risk.png">Risk</a></li>
         </ul>
       </div>
     </div>
 
+    <!-- Center Column -->
     <div class="column center">
       <div class="section">
         <div class="section-title">Featured Articles</div>
         <ul>
-          <li><a href="#">How Compounding Really Works</a></li>
-          <li><a href="#">What Makes a Good Business?</a></li>
-          <li><a href="#">Why Most Investors Underperform</a></li>
+          <li><a id="latestChart" href="#">Latest Chart</a></li>
         </ul>
       </div>
 
@@ -162,19 +162,20 @@
       </div>
     </div>
 
+    <!-- Right Column -->
     <div class="column right">
       <div class="section">
         <div class="section-title">Quick Links</div>
         <ul>
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Sign Up</a></li>
+          <li><a href="../dashboard/login.html">Login</a></li>
+          <li><a href="../dashboard/signup.html">Sign Up</a></li>
         </ul>
       </div>
 
       <div class="section">
         <div class="section-title">About</div>
         <ul>
-          <li><a href="#">What is Investing Crumbs?</a></li>
+          <li><a href="../dashboard/about.html">What is Investing Crumbs?</a></li>
         </ul>
       </div>
     </div>
@@ -186,6 +187,20 @@
   </footer>
 
 </div>
+
+<!-- Dynamic JS for latest scan/chart -->
+<script>
+fetch('index_files.json')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('latestScan').href = '../scan_results/' + data.latest_scan;
+    document.getElementById('latestScan').innerText = data.latest_scan;
+
+    document.getElementById('latestChart').href = '../charts/' + data.latest_chart;
+    document.getElementById('latestChart').innerText = data.latest_chart;
+  })
+  .catch(err => console.error('Error loading latest files:', err));
+</script>
 
 </body>
 </html>
