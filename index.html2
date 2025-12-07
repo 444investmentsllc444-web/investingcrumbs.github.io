@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Investing Crumbs - Finance Portal</title>
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      background: #ffffff;
+      color: #000000;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:visited {
+      color: #551a8b;
+    }
+
+    .container {
+      width: 760px;
+      margin: 0 auto;
+    }
+
+    .header {
+      padding: 10px 0;
+      border-bottom: 2px solid #cccccc;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0000cc;
+    }
+
+    .nav {
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    .nav a {
+      margin-right: 10px;
+    }
+
+    .main {
+      display: table;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .column {
+      display: table-cell;
+      vertical-align: top;
+      padding: 6px;
+    }
+
+    .left {
+      width: 180px;
+      border-right: 1px solid #cccccc;
+    }
+
+    .center {
+      width: 400px;
+      border-right: 1px solid #cccccc;
+    }
+
+    .right {
+      width: 180px;
+    }
+
+    .section {
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      background: #f1f1f1;
+      padding: 4px;
+      border: 1px solid #cccccc;
+      font-size: 12px;
+    }
+
+    ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    footer {
+      font-size: 10px;
+      text-align: center;
+      margin: 20px 0;
+      color: #333333;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">Investing Crumbs</div>
+    <div class="nav">
+      <a href="#">Home</a>
+      <a href="#">Markets</a>
+      <a href="#">Stocks</a>
+      <a href="#">Screeners</a>
+      <a href="#">Learn</a>
+      <a href="#">About</a>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="column left">
+      <div class="section">
+        <div class="section-title">Market Tools</div>
+        <ul>
+          <li><a href="#">Stock Screener</a></li>
+          <li><a href="#">Dividend Finder</a></li>
+          <li><a href="#">ETF List</a></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Learn</div>
+        <ul>
+          <li><a href="#">Investing Basics</a></li>
+          <li><a href="#">Valuation</a></li>
+          <li><a href="#">Risk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="column center">
+      <div class="section">
+        <div class="section-title">Featured Articles</div>
+        <ul>
+          <li><a href="#">How Compounding Really Works</a></li>
+          <li><a href="#">What Makes a Good Business?</a></li>
+          <li><a href="#">Why Most Investors Underperform</a></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Market Notes</div>
+        <ul>
+          <li>• S&P 500 long-term returns explained</li>
+          <li>• Why valuation matters more than news</li>
+          <li>• Simple rules that beat complexity</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="column right">
+      <div class="section">
+        <div class="section-title">Quick Links</div>
+        <ul>
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Sign Up</a></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">About</div>
+        <ul>
+          <li><a href="#">What is Investing Crumbs?</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 1999–2025 Investing Crumbs • For educational purposes only
+  </footer>
+
+</div>
+
+</body>
+</html>
